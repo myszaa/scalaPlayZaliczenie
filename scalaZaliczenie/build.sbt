@@ -10,7 +10,8 @@ resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
       
 scalaVersion := "2.11.7"
 
-libraryDependencies ++= Seq( "org.postgresql" % "postgresql" % "9.4-1206-jdbc42", jdbc  , ws , specs2 % Test, "org.mindrot" % "jbcrypt" % "0.3m" )
+libraryDependencies ++= Seq( "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
+  jdbc  , ws , specs2 % Test, "org.mindrot" % "jbcrypt" % "0.3m","org.webjars" % "bootstrap" % "3.3.7" )
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 
