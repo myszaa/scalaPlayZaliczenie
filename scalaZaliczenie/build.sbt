@@ -2,7 +2,7 @@ name := "scalaZaliczenie"
  
 version := "1.0" 
       
-lazy val `scalazaliczenie` = (project in file(".")).enablePlugins(PlayScala)
+lazy val `scalazaliczenie` = (project in file(".")).enablePlugins(PlayScala, PlayEbean)
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
       
@@ -14,3 +14,4 @@ libraryDependencies ++= Seq( guice, "org.postgresql" % "postgresql" % "9.4-1206-
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 
+libraryDependencies += "com.h2database" % "h2" % "1.4.192"

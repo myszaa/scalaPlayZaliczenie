@@ -1,0 +1,12 @@
+@import helper._
+@import model.User
+@(userForm: Form[User])(implicit request: RequestHeader, messages: Messages)
+@main("Register") {
+    @form(action = routes.HomeController.doRegister()) {
+        @inputText(userForm("username"))
+        @inputText(userForm("password"))
+        @helper.CSRF.formField
+        <input type="submit" value="Rejestruj">
+    }
+
+}
