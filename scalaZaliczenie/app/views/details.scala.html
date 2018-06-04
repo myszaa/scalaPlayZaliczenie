@@ -1,0 +1,24 @@
+
+@import helper._
+@import model.UserEmail
+@import model.UserDB
+@import model.LuckyNumber
+@(userForm: Form[UserEmail], user: UserDB, luckynumbers: List[LuckyNumber])(implicit request: RequestHeader, messages: Messages)
+@main("Details") {
+
+    <h1>@user.userName</h1>
+    <h1>@user.email</h1>
+    <h1>Lucky numbers:</h1>
+    @for(index <- 0 until luckynumbers.length) {
+        <h1>@luckynumbers(index).number</h1>
+    }
+
+    @if(request.session.get("mysession").getOrElse("") == user.userName) {
+
+        @form(action = routes.HomeController.changeEmail(user.userName)) {
+            @inputText(userForm("email"))
+            <input type="submit" value="Change">
+        }
+
+    }
+}

@@ -1,2 +1,30 @@
+@import play.api.mvc.Request
+@import model.UserDB
+@(implicit request: play.api.mvc.RequestHeader, user: UserDB, userlist: List[UserDB])
 @main("Welcome to Play") {
+
+
+
+
+    @if(request.session.get("mysession").getOrElse("") != "") {
+        <a href="@routes.HomeController.logout()">Logout</a>
+        <h2 style="text-align: center">
+            Welcome @request.session.get("mysession")
+        </h2 >
+    } else{
+        <a href="@routes.HomeController.login()">Login</a>
+        <a href="@routes.HomeController.register()">Register</a>
+        <h2 style="text-align: center">
+            Welcome Guest
+        </h2>
+    }
+
+    <ul style="text-align: center; padding-top: 50px">
+    @for(index <- 0 until user.all.length) {
+        <li><a href="@routes.HomeController.details(userlist(index).userName)">@userlist(index).userName</a></li>
+    }
+    </ul>
+
+
+
 }

@@ -4,7 +4,8 @@
 @main("Register") {
     @form(action = routes.HomeController.doRegister()) {
         @inputText(userForm("username"))
-        @inputText(userForm("password"))
+        @inputPassword(userForm("password"))
+        @inputText(userForm("email"))
         <input type="submit" value="Rejestruj">
     }
 

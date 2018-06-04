@@ -12,3 +12,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /login                      controllers.HomeController.login
 GET     /register                   controllers.HomeController.register
 POST    /register                   controllers.HomeController.doRegister
+POST    /login                      controllers.HomeController.doLogin
+GET     /logout                     controllers.HomeController.logout
+GET     /details/:name              controllers.HomeController.details(name)
+POST    /changeemail/:email         controllers.HomeController.changeEmail(email)
