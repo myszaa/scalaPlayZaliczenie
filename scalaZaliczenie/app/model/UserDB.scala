@@ -1,6 +1,6 @@
 package model
 
-import io.ebean.{Model}
+import com.avaje.ebean.Model
 import javax.persistence.{Entity, Id}
 
 @Entity

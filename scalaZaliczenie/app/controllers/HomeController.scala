@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject._
 import model.{User, UserDB}
-import play.api.db.Database
 import play.api.mvc._
 import play.api.Logger
+import play.api.i18n.{I18nSupport, MessagesApi}
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -13,7 +13,7 @@ import play.api.Logger
 
 
 @Singleton
-class HomeController @Inject()(db: Database, cc: ControllerComponents) extends AbstractController(cc) with play.api.i18n.I18nSupport{
+class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller with I18nSupport{
 
   def index = Action {
     Ok(views.html.index())
