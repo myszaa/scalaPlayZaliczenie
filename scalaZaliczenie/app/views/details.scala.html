@@ -13,7 +13,7 @@
             <li class="list-group-item">Email: @user.email</li>
         </ul>
         <h1 style="padding-top: 30px;text-align: center">Lucky numbers:</h1>
-        <ul class="list-inline">
+        <ul class="list-inline" style="text-align:center">
         @for(index <- 0 until luckynumbers.length) {
             <li class="list-inline-item">@luckynumbers(index).number</li>
         }
