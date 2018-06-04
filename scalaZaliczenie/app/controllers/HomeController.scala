@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 import model.{User, UserDB, UserLogin,UserEmail, LuckyNumber}
+import org.mindrot.jbcrypt.BCrypt;
 import play.api.mvc._
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -72,6 +73,7 @@ class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller 
       formData => {
         var name = formData.username
         var password = formData.password
+        var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt)
         var email = formData.email
         val user = new UserDB
         var users:List[UserDB] = user.findByName(name)
@@ -81,7 +83,7 @@ class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller 
           Redirect("/")
         } else {
           user.userName = name
-          user.password = password
+          user.password = hashedPassword
           user.email = email
           val r = scala.util.Random
           var luckynumber = new LuckyNumber
@@ -114,7 +116,7 @@ class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller 
         var users:List[UserDB] = user.findByName(name)
         if(users.length > 0 )
         {
-          if(users(0).password.toString == password.toString) {
+          if(BCrypt.checkpw(password.toString, users(0).password.toString)) {
             Redirect("/").withSession("mysession" -> name)
           }
           else {
