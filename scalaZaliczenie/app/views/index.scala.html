@@ -8,22 +8,26 @@
 
     @if(request.session.get("mysession").getOrElse("") != "") {
         <a href="@routes.HomeController.logout()">Logout</a>
-        <h2 style="text-align: center">
+        <h1 style="text-align: center ; color:red;">
             Welcome @request.session.get("mysession")
-        </h2 >
+        </h1 >
     } else{
         <a href="@routes.HomeController.login()">Login</a>
         <a href="@routes.HomeController.register()">Register</a>
-        <h2 style="text-align: center">
+        <h1 style="text-align: center">
             Welcome Guest
-        </h2>
+        </h1>
     }
 
-    <ul style="text-align: center; padding-top: 50px">
-    @for(index <- 0 until user.all.length) {
-        <li><a href="@routes.HomeController.details(userlist(index).userName)">@userlist(index).userName</a></li>
-    }
-    </ul>
+    <div class="container">
+
+        <ul class = "list-group" style="text-align: center; padding-top: 50px">
+            <h2>List of Users </h2>
+        @for(index <- 0 until user.all.length) {
+            <li class="list-group-item"><a href="@routes.HomeController.details(userlist(index).userName)">@userlist(index).userName</a></li>
+        }
+        </ul>
+    </div>
 
 
 

@@ -6,19 +6,28 @@
 @(userForm: Form[UserEmail], user: UserDB, luckynumbers: List[LuckyNumber])(implicit request: RequestHeader, messages: Messages)
 @main("Details") {
 
-    <h1>@user.userName</h1>
-    <h1>@user.email</h1>
-    <h1>Lucky numbers:</h1>
-    @for(index <- 0 until luckynumbers.length) {
-        <h1>@luckynumbers(index).number</h1>
-    }
+    <div class="container">
+        <ul class = "list-group" style="text-align: center">
+            <h2>Users details </h2>
+            <li class="list-group-item">Username: @user.userName</li>
+            <li class="list-group-item">Email: @user.email</li>
+        </ul>
+        <h1 style="padding-top: 30px;text-align: center">Lucky numbers:</h1>
+        <ul class="list-inline">
+        @for(index <- 0 until luckynumbers.length) {
+            <li class="list-inline-item">@luckynumbers(index).number</li>
+        }
+        </ul>
+    </div>
 
     @if(request.session.get("mysession").getOrElse("") == user.userName) {
 
-        @form(action = routes.HomeController.changeEmail(user.userName)) {
-            @inputText(userForm("email"))
-            <input type="submit" value="Change">
+        <div class = "container">
+        @form(action = routes.HomeController.changeEmail(user.userName) ,'class -> "form-signin") {
+            @inputText(userForm("email"),'class->"form-control")
+            <input type="submit" value="Change" class="btn btn-lg btn-primary btn-block">
         }
+        </div>
 
     }
 }

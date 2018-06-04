@@ -2,11 +2,13 @@
 @import model.User
 @(userForm: Form[User])(implicit request: RequestHeader, messages: Messages)
 @main("Register") {
-    @form(action = routes.HomeController.doRegister()) {
-        @inputText(userForm("username"))
-        @inputPassword(userForm("password"))
-        @inputText(userForm("email"))
-        <input type="submit" value="Rejestruj">
-    }
-
+    <div class="container" style="padding-top: 100px">
+        @form(action = routes.HomeController.doRegister(),'class -> "form-signin" ) {
+            <h2 class="form-signin-heading " style="text-align: center">Please register in</h2>
+            @inputText(userForm("username"),'class->"form-control")
+            @inputPassword(userForm("password"),'class->"form-control")
+            @inputText(userForm("email"),'class->"form-control")
+            <input type="submit" value="Register" class="btn btn-lg btn-primary btn-block">
+        }
+    </div>
 }

@@ -2,10 +2,14 @@
 @import model.UserLogin
 @(userForm: Form[UserLogin])(implicit request: RequestHeader, messages: Messages)
 @main("Login") {
-    @form(action = routes.HomeController.doLogin()) {
-        @inputText(userForm("username"))
-        @inputPassword(userForm("password"))
-        <input type="submit" value="Login">
-    }
+    <div class="container" style="padding-top: 100px">
+        @form(action = routes.HomeController.doLogin() ,'class -> "form-signin" ) {
+            <h2 class="form-signin-heading " style="text-align: center">Please log in</h2>
+                @inputText(userForm("username"), 'class->"form-control")
+                @inputPassword(userForm("password"), 'class->"form-control")
+                <input type="submit" value="Login" class="btn btn-lg btn-primary btn-block">
+            </div>
+        }
+    </div>
 
 }
