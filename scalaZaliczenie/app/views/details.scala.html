@@ -1,9 +1,10 @@
 
 @import helper._
 @import model.UserEmail
+@import model.UserPassword
 @import model.UserDB
 @import model.LuckyNumber
-@(userForm: Form[UserEmail], user: UserDB, luckynumbers: List[LuckyNumber])(implicit request: RequestHeader, messages: Messages)
+@(userForm: Form[UserEmail], userForm2: Form[UserPassword],  user: UserDB, luckynumbers: List[LuckyNumber])(implicit request: RequestHeader, messages: Messages)
 @main("Details") {
 
     <div class="container">
@@ -25,9 +26,19 @@
         <div class = "container">
         @form(action = routes.HomeController.changeEmail(user.userName) ,'class -> "form-signin") {
             @inputText(userForm("email"),'class->"form-control")
-            <input type="submit" value="Change" class="btn btn-lg btn-primary btn-block">
+            <input type="submit" value="Change email" class="btn btn-lg btn-primary btn-block">
         }
         </div>
+
+    }
+    @if(request.session.get("mysession").getOrElse("") == user.userName) {
+
+    <div class = "container">
+        @form(action = routes.HomeController.changePassword(user.userName) ,'class -> "form-signin") {
+        @inputPassword(userForm2("password"),'class->"form-control")
+        <input type="submit" value="Change Password" class="btn btn-lg btn-primary btn-block">
+        }
+    </div>
 
     }
 }

@@ -16,3 +16,4 @@ POST    /login                      controllers.HomeController.doLogin
 GET     /logout                     controllers.HomeController.logout
 GET     /details/:name              controllers.HomeController.details(name)
 POST    /changeemail/:email         controllers.HomeController.changeEmail(email)
+POST    /changepassword/:password   controllers.HomeController.changePassword(password)

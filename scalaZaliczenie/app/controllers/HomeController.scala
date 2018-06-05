@@ -1,8 +1,8 @@
 package controllers
 
 import javax.inject._
-import model.{User, UserDB, UserLogin,UserEmail, LuckyNumber}
-import org.mindrot.jbcrypt.BCrypt;
+import model._
+import org.mindrot.jbcrypt.BCrypt
 import play.api.mvc._
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -32,7 +32,7 @@ class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller 
     var user = userList(0)
     var luckynumber = new LuckyNumber
     var luckynumbers = luckynumber.findByUserId(user.id)
-    Ok(views.html.details(UserEmail.form,user, luckynumbers))
+    Ok(views.html.details(UserEmail.form,UserPassword.form, user, luckynumbers))
  }
 
   def changeEmail(username : String) = Action { implicit request: Request[AnyContent] =>
@@ -47,6 +47,24 @@ class HomeController @Inject()(val messagesApi: MessagesApi) extends Controller 
         var userList = userdb.findByName(username)
         var user = userList(0)
         user.email = email
+        user.save()
+        Redirect("/")
+      }
+    )
+  }
+
+  def changePassword(username : String) = Action { implicit request: Request[AnyContent] =>
+    UserPassword.form.bindFromRequest.fold(
+      formWithErrors => {
+        // binding failure, you retrieve the form containing errors:
+        Redirect("/")
+      },
+      formData => {
+        var password = formData.password
+        var userdb : UserDB = new UserDB
+        var userList = userdb.findByName(username)
+        var user = userList(0)
+        user.password = BCrypt.hashpw(password, BCrypt.gensalt)
         user.save()
         Redirect("/")
       }
